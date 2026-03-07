@@ -7,21 +7,149 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Ken Burns — slow pan + zoom ─────────────────────────────────────────── */
+@keyframes kenBurns {
+  0%   { transform: scale(1.00) translate(0%,    0%   ); }
+  25%  { transform: scale(1.06) translate(-1%,  -0.5% ); }
+  50%  { transform: scale(1.10) translate(-0.5%,-1%   ); }
+  75%  { transform: scale(1.07) translate(1%,   -0.5% ); }
+  100% { transform: scale(1.04) translate(0.5%,  0.5% ); }
+}
+.ken-burns {
+  animation: kenBurns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ─── Float — gentle vertical oscillation ─────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-15px) rotate(2deg); }
+  66%       { transform: translateY(-8px) rotate(-1deg); }
+}
+.animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+
+/* ─── Shimmer — moving highlight ──────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.15) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite linear;
+}
+
+/* ─── Pulse Glow — orange ring for CTA buttons ────────────────────────────── */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0  rgba(249,115,22,0.5); }
+  50%       { box-shadow: 0 0 0 14px rgba(249,115,22,0); }
+}
+.animate-pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+
+/* ─── Gradient slide ──────────────────────────────────────────────────────── */
+@keyframes gradientSlide {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientSlide 6s ease infinite;
+}
+
+/* ─── Hero staggered fade-in (runs once on mount) ─────────────────────────── */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.hero-animate-1 { animation: heroFadeIn 0.7s ease-out 0.15s both; }
+.hero-animate-2 { animation: heroFadeIn 0.7s ease-out 0.35s both; }
+.hero-animate-3 { animation: heroFadeIn 0.7s ease-out 0.55s both; }
+.hero-animate-4 { animation: heroFadeIn 0.7s ease-out 0.75s both; }
+.hero-animate-5 { animation: heroFadeIn 0.7s ease-out 0.95s both; }
+.hero-animate-6 { animation: heroFadeIn 0.7s ease-out 1.15s both; }
+
+/* ─── Stat card scale-in ──────────────────────────────────────────────────── */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+.stat-animate-1 { animation: scaleIn 0.5s ease-out 1.35s both; }
+.stat-animate-2 { animation: scaleIn 0.5s ease-out 1.50s both; }
+.stat-animate-3 { animation: scaleIn 0.5s ease-out 1.65s both; }
+
+/* ─── Slow spin for decorative rings ─────────────────────────────────────── */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spinSlow 25s linear infinite; }
+
+/* ─── Bounce-in for trust badges / pills ─────────────────────────────────── */
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.5); }
+  60%  { opacity: 1; transform: scale(1.1); }
+  80%  { transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1);   }
+}
+.animate-bounce-in { animation: bounceIn 0.7s ease-out both; }
+
+/* ─── Number count-up pulse ───────────────────────────────────────────────── */
+@keyframes countPulse {
+  0%   { transform: scale(1);    }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1);    }
+}
+.animate-count-pulse { animation: countPulse 0.6s ease-out; }
+
+/* ─── Fade-in-up utility (used via JS toggle) ────────────────────────────── */
+.fade-in-up {
+  animation: heroFadeIn 0.65s ease-out both;
+}
+
+/* ─── Slide-in from left ──────────────────────────────────────────────────── */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+.slide-in-left { animation: slideInLeft 0.7s ease-out both; }
+
+/* ─── Slide-in from right ─────────────────────────────────────────────────── */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+.slide-in-right { animation: slideInRight 0.7s ease-out both; }
+
+/* ─── Marquee — infinite right-to-left scroll ─────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
