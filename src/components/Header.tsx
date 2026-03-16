@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import {
   Phone, Menu, X, ChevronDown, Wrench, Globe,
   Zap, Waves, Flame, Search, GitBranch, Building2,
-  Thermometer, Wind, Droplets, Settings, BadgePercent,
+  Thermometer, Wind, Droplets, Settings,
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
